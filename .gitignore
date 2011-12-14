@@ -4,3 +4,5 @@
 *.out
 *.log
 *.aux
+.emacs.d/session.*
+.emacs.d/auto-save-list
