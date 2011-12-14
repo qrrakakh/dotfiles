@@ -1,0 +1,7 @@
+[user]
+	name = Hiroaki Kuramae
+	email = Hiroaki_Kuramae@mist.i.u-tokyo.ac.jp
+[color]
+	ui = auto
+[core]
+	excludesfile = /home/qrrakakh/.gitignore
