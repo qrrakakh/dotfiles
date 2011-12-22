@@ -37,7 +37,7 @@ function rprompt-git-current-branch {
         if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
                 color=%F{blue}
         elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
-                color=%F{yellow}
+                color=%F{orange}
         elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
                 color=%B%F{red}
         else
@@ -61,7 +61,7 @@ case ${UID} in
 *)
     PROMPT='%{${fg[green]}%}[${USERNAME}@${HOST}]%{${reset_color}%} `rprompt-git-current-branch`%{${fg[yellow]}%}%~%{${reset_color}%}
 $ '
-    RPROMPT="$(date)"
+    RPROMPT="%T"
     PROMPT2="%_> "
     SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
     [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
