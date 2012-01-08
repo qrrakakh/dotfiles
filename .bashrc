@@ -29,6 +29,7 @@ else
 fi
 PS1="${PSCOLOR}[\u@\H] \w\n%\[\033[0m\] "
 
+alias lsc='/bin/ls'
 alias la='ls -a'  
 alias v='ls -l'
 alias screen='screen -U'

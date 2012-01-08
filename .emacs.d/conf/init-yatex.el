@@ -6,7 +6,8 @@
 
   (setq auto-mode-alist (cons '("\\.tex$" . yatex-mode) auto-mode-alist))
   (setq YaTeX-use-AMS-LaTeX t)
-  (setq YaTeX-kanji-code 4)
+  ;(setq YaTeX-kanji-code 4)
+  (setq YaTeX-kanji-code nil)
   (setq tex-command "pdfplatex")
   (setq dvi2-command "evince")
   (setq YaTeX-dvi2-command-ext-alist

@@ -84,6 +84,7 @@
 (load "init-flymake")
 
 (load "init-fortran")
+(load "init-package")
 (load "init-ruby")
 (load "init-csharp")
 (load "init-scala")
