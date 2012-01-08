@@ -31,11 +31,11 @@
          (local-file  (file-relative-name
                        temp-file
                        (file-name-directory buffer-file-name))))
-    (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
+    (list "g++" (list "--std=c++0x" "-Wall" "-Wextra" "-fsyntax-only" local-file))))
 ;; (defun flymake-cc-init ()
 ;;   (flymake-simple-make-or-generic-init
 ;;    "g++" '("-Wall" "-Wextra" "-pedantic" "-fsyntax-only")))
-(push '("\\.(cpp|CPP|cc|CC)$" flymake-cc-init ) flymake-allowed-file-name-masks)
+(push '("\\.cpp$" flymake-cc-init ) flymake-allowed-file-name-masks)
 
 (add-hook 'c++-mode-hook '(lambda () (flymake-mode t)))
 

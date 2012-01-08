@@ -5,14 +5,14 @@
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\M-h" 'help-for-help)
 (global-set-key "\C-xa" 'anything)
-(global-set-key "\C-j" 'nil)
+(global-unset-key "\C-j")
+(global-set-key "\M-j" 'edebug-eval-print-last-sexp)
 
 (global-set-key "\C-\M-s" 'isearch-forward-regexp)
 (global-set-key "\C-\M-S" 'isearch-backward-regexp)
 
 (global-set-key "\C-r" 'replace-string)
 (global-set-key "\C-\M-r" 'replace-regexp)
-(global-set-key "\C-j" 'nil)
 
 (global-set-key "\C-xn" 'new-frame)
 (global-set-key "\C-xO" 'other-frame)
