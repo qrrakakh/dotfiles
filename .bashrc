@@ -1,5 +1,5 @@
 export LESS=MrXE
-export PATH=$PATH:$HOME/local/bin
+export PATH=$HOME/local/bin:$PATH
 export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 export LIBRARY_PATH=$HOME/local/lib:$LIBRARY_PATH

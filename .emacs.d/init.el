@@ -86,6 +86,7 @@
 (load "init-fortran")
 (load "init-package")
 (load "init-ruby")
+(load "init-lua")
 (load "init-csharp")
 (load "init-scala")
 (load "init-haskell")
