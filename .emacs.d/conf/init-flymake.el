@@ -1,7 +1,8 @@
 ;; flymake
 
-(require 'flymake)
-(set-face-background 'flymake-errline "red4")
+(when nil
+  (require 'flymake)
+  (set-face-background 'flymake-errline "red4")
 (set-face-background 'flymake-warnline "dark slate blue")
 
 ;; for latex
@@ -81,3 +82,4 @@
  '(lambda ()
     ;; Don't want flymake mode for ruby regions in rhtml files
     (if (not (null buffer-file-name)) (flymake-mode))))
+)
