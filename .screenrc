@@ -1,1 +1,22 @@
 escape ^Jj
+screen 1 emacs -nw
+screen 0
+
+markkeys h=^B:l=^F:$=^E:^D=^V
+
+bind -c REGION 2 split
+bind -c REGION 1 only
+bind -c REGION 3 split -v
+bind -c REGION 0 remove
+bind -c REGION o focus
+bind x command -c REGION
+
+startup_message off
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
+autodetach on
+termcapinfo xterm* ti@:te@
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+caption always "%-w%10L>%{=b bw}%n %t%{-}%+w%-0="
+hardstatus alwayslastline "%H%=%Y/%m/%d %02c"
+shelltitle "$ |shell"
+term screen-256color
