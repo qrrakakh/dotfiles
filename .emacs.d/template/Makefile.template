@@ -1,0 +1,6 @@
+CC=gcc
+CXX=g++
+FC=gfortran
+COPTS=-O3 -Wall
+FOPTS=-O3 -Wall
+LINKOPTS=-lblas

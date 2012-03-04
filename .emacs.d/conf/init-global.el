@@ -29,6 +29,10 @@
 (setq hl-line-face 'nil)
 (global-hl-line-mode t)
 
+;; show trailing whitespace
+(setq-default show-trailing-whitespace t)
+(set-face-background 'trailing-whitespace "#b14770")
+
 ;; disable blinking cursor
 (blink-cursor-mode 0)
 
@@ -84,15 +88,15 @@
 (when
     (require 'linum nil t)
   (setq linum-format "%5d|")
-  ;; (dolist (linum-hook (list
-  ;;               'c-mode-hook
-  ;;               'emacs-lisp-mode-hook
-  ;;               'lisp-interaction-mode-hook
-  ;;               'lisp-mode-hook
-  ;;               'java-mode-hook
-  ;;               'sh-mode-hook
-  ;;               ))
-  ;;   (add-hook linum-hook (lambda () (linum-mode t))))
+  (dolist (linum-hook (list
+                       'c-mode-hook
+                       'emacs-lisp-mode-hook
+                       'lisp-interaction-mode-hook
+                       'lisp-mode-hook
+                       'java-mode-hook
+                       'sh-mode-hook
+                       ))
+    (add-hook linum-hook (lambda () (linum-mode t))))
   (global-linum-mode)
   )
 ;; Auto complete
@@ -104,10 +108,23 @@
 ;; Let Lambda on LISP cute
 (when (require 'pretty-lambdada nil t)
   (global-pretty-lambda-mode t)
-)
+  )
 
 ;; uniquify
 (when (require 'uniquify nil t)
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
   (setq uniquify-ignore-buffers-re "*[^*]+*")
-)
+  )
+
+;; autoinsert
+(setq auto-insert-directory "~/.emacs.d/template/")
+(load "autoinsert" t)
+(setq auto-insert-alist
+      (append '(("\\.cc$" . "template.cc")
+                ("\\.c$" . "template.c")
+                ("\\.cpp" . "template.cc")
+                ("\\.py" . "template.py")
+                ("\\.tex" . "template.tex")
+                ("[Mm]akefile" . "Makefile.template"))
+              auto-insert-alist))
+(add-hook 'find-file-hooks 'auto-insert)

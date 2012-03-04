@@ -82,6 +82,7 @@
 (load "init-shell")
 (load "init-languages")
 (load "init-flymake")
+(load "init-client")
 
 (load "init-fortran")
 (load "init-package")
