@@ -2,7 +2,7 @@
 ;;;; Window環境用の設定
 (menu-bar-mode -1)
 
-(cond (window-system
+;(cond (window-system
        ;; ツールバー削除
        (tool-bar-mode -1)
   
@@ -18,7 +18,6 @@
        (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
        (setq initial-frame-alist
-             ;;(append '((font . "VL Gothic:style=Regular:size=16") 
              (append '((font . "Ricty:style=Regular:size=16") 
                        (width . 80)
                        (height . 35))
@@ -28,12 +27,4 @@
        
        (add-to-list 'default-frame-alist '(alpha . 95))
 
-       ;; (cond ( (string-match "^23\." emacs-version)
-       ;;         (set-default-font "VL Gothic-11")
-       ;;          (set-fontset-font (frame-parameter nil 'font)
-       ;;                            'japanese-jisx0208
-       ;;                            '("IPA Gothic" . "unicode-bmp"))
-       ;;         ))
-       
-       ))
 

@@ -1,6 +1,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Miscellaneous
 
+;; set indent size
+(setq tab-width 4)
+      
 ;; disable backup
 (setq make-backup-files nil)
 
@@ -28,10 +31,6 @@
 ;;(setq hl-line-face 'underline)
 (setq hl-line-face 'nil)
 (global-hl-line-mode t)
-
-;; show trailing whitespace
-(setq-default show-trailing-whitespace t)
-(set-face-background 'trailing-whitespace "#b14770")
 
 ;; disable blinking cursor
 (blink-cursor-mode 0)

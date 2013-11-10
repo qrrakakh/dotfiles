@@ -1,5 +1,5 @@
-escape ^Jj
-screen 1 emacs -nw
+escape ^Oo
+screen 1 emacsclient -nw
 screen 0
 
 markkeys h=^B:l=^F:$=^E:^D=^V

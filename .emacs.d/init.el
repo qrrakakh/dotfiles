@@ -86,6 +86,7 @@
 
 (load "init-fortran")
 (load "init-package")
+;(load "init-powershell")
 (load "init-ruby")
 (load "init-lua")
 (load "init-csharp")
@@ -99,38 +100,13 @@
 
 (load "init-anything")
 (load "init-yatex")
-;;(load "init-ecb")
-;;(load "init-howm")
 (load "init-twitter")
-;(load "init-auto-install")
 (load "init-ispell")
 (load "init-tramp")
-;;(load "init-ess")
 
-;;(load "init-highlighting")
-;;(load "init-minibuf")
-;;(load "init-killring")
-;;(load "init-abbrves")
-;;(load "init-templates")
-;;(load "init-dired")
-;;(load "init-migemo")
-;;(load "init-tags")
-;;(load "init-vcs")
-;;(load "init-html")
-;;(load "init-css")
-;;(load "init-javascript")
-;;(load "init-c")
-;;(load "init-perl")
-;;(load "init-perlysense")
-;(load "init-fetchmail")
-;;(load "init-php")
-;;(load "init-lisp")
-;;(load "init-elscreen")
-;;(load "init-taskpaper")
-
-;; For Meadow
-(when (and run-w32 run-meadow)
-  (load "init-meadow") )
+;; For NTEmacs
+(when (and run-w32 (not run-meadow))
+  (load "init-ntemacs") )
 
 ;; For Linux
 (when run-linux
@@ -138,13 +114,11 @@
 
 ;; For Cygwin
 (when run-cygwin
-  (load "init-cygwin"))
+  ;(load "init-cygwin")
+  )
 
 ;; For OS X
 (when run-darwin
   (load "init-mac"))
 
 
-(put 'upcase-region 'disabled nil)
-
-(put 'downcase-region 'disabled nil)

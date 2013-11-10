@@ -1,1 +1,1 @@
-(setq tram-default-method "ssh")
+(setq tram-default-method "sshx")

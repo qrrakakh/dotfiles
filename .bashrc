@@ -4,12 +4,12 @@ export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 export LIBRARY_PATH=$HOME/local/lib:$LIBRARY_PATH
 export LD_LIBRARY_PATH=$LIBRARY_PATH
-
+export editor='emacsclient -nw'
 if [ $TERM == "dumb" ]; then
     #stty -echo nl
-	alias ls='ls -F -CF --color=never'
+    alias ls='ls -F -CF --color=never --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
 else
-    alias ls='ls -F --show-control-chars --color -CF'
+    alias ls='ls -F --show-control-chars --color -CF --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
 fi
 
 COLOR_DEFAULT='\e[0m'
@@ -35,6 +35,8 @@ alias v='ls -l'
 alias screen='screen -U'
 alias javac='javac -J-Dfile.encoding=utf8'
 alias bye='exit'
+alias ec='emacsclient -c'
+alias en='emacsclient -nw'
 alias g++11='g++ --std=c++0x'
 alias clang++11='clang++ --std=c++0x'
 
