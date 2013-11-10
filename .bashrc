@@ -4,7 +4,7 @@ export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
 export LIBRARY_PATH=$HOME/local/lib:$LIBRARY_PATH
 export LD_LIBRARY_PATH=$LIBRARY_PATH
-export editor='emacsclient -nw'
+export EDITOR='emacsclient -nw'
 if [ $TERM == "dumb" ]; then
     #stty -echo nl
     alias ls='ls -F -CF --color=never --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
