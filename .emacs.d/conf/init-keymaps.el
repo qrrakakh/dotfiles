@@ -21,7 +21,7 @@
 (global-set-key "\C-xE" 'flymake-display-err-menu-for-current-line)
 
 ;; Let auto-indent when enter-key typed (same as the prev. line)
-;(global-set-key "\C-m" 'newline-and-indent)
+(global-set-key "\C-m" 'newline-and-indent)
 (setq indent-line-function 'indent-relative-maybe)
 
 ;; revert buffer
