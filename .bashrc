@@ -54,8 +54,8 @@ if [ -e "viewmessage.txt" ]; then
     less "viewmessage.txt"
 fi
 
-if [ -e "$HOME/.bash_path" ]; then
-    source $HOME/.bash_path
+if [ -e "$HOME/.bash_local" ]; then
+    source $HOME/.bash_local
 fi
 
 #if [ "$PS1" ] ; then
