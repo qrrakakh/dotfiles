@@ -13,7 +13,9 @@
   (defun my-scala-back-to-editing-buffer ()
     (interactive)
     (switch-to-buffer my-scala-current-buffer))
-
-  (define-key scala-mode-map "\C-c\C-z" 'my-scala-switch-to-interpreter)
-  (define-key scala-mode-inf-map "\C-c\C-z" 'my-scala-back-to-editing-buffer)  
+  (add-hook 'scala-mode-hook
+            (lambda ()
+              (define-key scala-mode-map "\C-c\C-z" 'my-scala-switch-to-interpreter)
+              (define-key scala-mode-inf-map "\C-c\C-z" 'my-scala-back-to-editing-buffer)
+              ))
   )
