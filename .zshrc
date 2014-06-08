@@ -1,17 +1,11 @@
-# users generic .zshrc file for zsh(1)
-
 ## Environment variable configuration
-#
-# LANG
-#
-#export LANG=ja_JP.UTF-8
-export LANG=C
-#case ${UID} in
-#0)
-#    LANG=C
-#    ;;
-#esac
-
+export LESS=MrXE
+export PATH=$HOME/local/bin:$PATH
+export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
+export LIBRARY_PATH=$HOME/local/lib:$LIBRARY_PATH
+export LD_LIBRARY_PATH=$LIBRARY_PATH
+export EDITOR='emacsclient -nw'
 
 ## Default shell configuration
 #
@@ -70,27 +64,16 @@ $ '
 esac
 
 # auto change directory
-#
 setopt auto_cd
-
 # auto directory pushd that you can get dirs list by cd -[tab]
-#
 setopt auto_pushd
-
 # command correct edition before each completion attempt
-#
 setopt correct
-
 # compacked complete list display
-#
 setopt list_packed
-
 # no remove postfix slash of command line
-#
 setopt noautoremoveslash
-
 # no beep sound when complete list displayed
-#
 setopt nolistbeep
 
 
@@ -125,7 +108,7 @@ HISTFILE=${HOME}/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
 setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
+#setopt share_history        # share command history data
 
 
 ## Completion configuration
@@ -144,38 +127,6 @@ autoload zed
 #
 #autoload predict-on
 #predict-off
-
-
-## Alias configuration
-#
-# expand aliases before completing
-#
-setopt complete_aliases     # aliased ls needs if file/dir completions work
-
-alias where="command -v"
-alias j="jobs -l"
-
-case "${OSTYPE}" in
-freebsd*|darwin*)
-    alias ls="ls -G -w"
-    ;;
-linux*)
-    alias ls="ls --color"
-    ;;
-esac
-
-alias la="ls -a"
-alias lf="ls -F"
-alias ll="ls -l"
-
-alias du="du -h"
-alias df="df -h"
-
-alias su="su -l"
-
-alias screen='screen -U'
-alias javac='javac -J-Dfile.encoding=utf8'
-alias bye='exit'
 
 ## terminal configuration
 #
@@ -222,6 +173,48 @@ xterm|xterm-color|kterm|kterm-color)
     }
     ;;
 esac
+
+## Alias configuration
+#
+# expand aliases before completing
+#
+setopt complete_aliases     # aliased ls needs if file/dir completions work
+
+# aliases and functions
+case "${OSTYPE}" in
+freebsd*|darwin*)
+        #alias ls="ls -G -w"
+        alias ls='ls -F -GF --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
+        ;;
+linux*)
+        #alias ls="ls --color"
+        #alias ls='ls -F -GF --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
+        alias ls="ls -GF"
+    ;;
+esac
+
+alias where="command -v"
+alias lsc='/bin/ls'
+alias la='ls -a'  
+alias lf="ls -F"
+alias ll='ls -l'
+
+alias du="du -h"
+alias df="df -h"
+
+alias screen='screen -U'
+alias javac='javac -J-Dfile.encoding=utf8'
+alias bye='exit'
+alias g++11='g++ --std=c++0x'
+alias clang++11='clang++ --std=c++0x'
+
+alias ec='emacsclient -c'
+alias en='emacsclient -nw'
+
+function ff { diff $1~ $1 ; }
+function ffc { diff -c $1~ $1 ; }
+function va { v -a "$@" | more ; }
+
 
 
 ## load user .zshrc configuration file
