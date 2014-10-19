@@ -66,3 +66,4 @@ function va { v -a "$@" | more ; }
 HISTCONTROL=ignoredups
 HISTFILESIZE=50000
 HISTSIZE=50000
+complete -cf sudo

@@ -124,6 +124,7 @@
                 ("\\.cpp" . "template.cc")
                 ("\\.py" . "template.py")
                 ("\\.tex" . "template.tex")
+                ("\\.rb" . "template.rb")
                 ("[Mm]akefile" . "Makefile.template"))
               auto-insert-alist))
 (add-hook 'find-file-hooks 'auto-insert)

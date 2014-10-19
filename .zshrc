@@ -75,6 +75,13 @@ setopt list_packed
 setopt noautoremoveslash
 # no beep sound when complete list displayed
 setopt nolistbeep
+# share history between the multi terminal
+setopt share_history
+# completion
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+			     /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*:default' menu select
 
 
 ## Keybind configuration
@@ -174,7 +181,7 @@ xterm|xterm-color|kterm|kterm-color)
     ;;
 esac
 
-## Alias configuration
+## Aias configuration
 #
 # expand aliases before completing
 #
@@ -184,12 +191,11 @@ setopt complete_aliases     # aliased ls needs if file/dir completions work
 case "${OSTYPE}" in
 freebsd*|darwin*)
         #alias ls="ls -G -w"
-        alias ls='ls -F -GF --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
+        alias ls='ls -F -GF --color --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
         ;;
 linux*)
         #alias ls="ls --color"
-        #alias ls='ls -F -GF --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
-        alias ls="ls -GF"
+        alias ls='ls -F -GF --color --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
     ;;
 esac
 
