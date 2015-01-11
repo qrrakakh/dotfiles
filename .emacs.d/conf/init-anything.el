@@ -1,7 +1,6 @@
 (when (require 'anything nil t)
   (require 'anything-config)
   (defvar org-direcotry "")
-  (global-set-key [?\C-,] 'anything)
   (setq anything-sources
         (list anything-c-source-buffers
               anything-c-source-google-suggest
@@ -12,5 +11,14 @@
               anything-c-source-emacs-functions
               anything-c-source-info-pages
               anything-c-source-calculation-result
-              anything-c-source-locate))
+              anything-c-source-locate
+              anything-c-source-imenu
+              ))
+  (setq
+   anything-idle-delay 0.3
+   anything-input-idle-delay 0.2
+   anything-candidate-number-limit 100
+   anything-quick-update t
+   anything-enable-shourtcuts 'alphabet
+   )
   )

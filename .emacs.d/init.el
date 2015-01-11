@@ -75,18 +75,28 @@
 
 ;; Load settings
 
+;; config
 (load "init-global")
 (load "init-window")
 (load "init-keymaps")
 (load "init-color")
 (load "init-shell")
 (load "init-languages")
+
+;; plugins
 (load "init-flymake")
 (load "init-client")
+(load "init-anything")
+(load "init-yatex")
+(load "init-twitter")
+(load "init-ispell")
+(load "init-tramp")
 
+;; language specific
 (load "init-fortran")
 (load "init-package")
 ;(load "init-powershell")
+(load "init-python")
 (load "init-ruby")
 (load "init-lua")
 (load "init-csharp")
@@ -97,12 +107,6 @@
 (load "init-gnuplot")
 (load "init-octave")
 (load "init-ffpp")
-
-(load "init-anything")
-(load "init-yatex")
-(load "init-twitter")
-(load "init-ispell")
-(load "init-tramp")
 
 ;; For NTEmacs
 (when (and run-w32 (not run-meadow))
