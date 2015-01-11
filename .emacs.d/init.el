@@ -2,7 +2,7 @@
 
 ;; Identify the environments:
 ;; http://d.hatena.ne.jp/hito-d/20060220#1140445790
-
+(require 'cl)
 ;; OS
 (defvar run-unix
   (or (equal system-type 'gnu/linux)
@@ -76,6 +76,7 @@
 ;; Load settings
 
 ;; config
+(load "init-package")
 (load "init-global")
 (load "init-window")
 (load "init-keymaps")
@@ -94,7 +95,6 @@
 
 ;; language specific
 (load "init-fortran")
-(load "init-package")
 ;(load "init-powershell")
 (load "init-python")
 (load "init-ruby")
