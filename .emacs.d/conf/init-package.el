@@ -437,12 +437,14 @@
       zone
       ))
 
-  (let ((not-installed (loop for x in installing-package-list
-                             when (not (package-installed-p x))
-                             collect x)))
+  (defun install-using-packages ()
+    (let ((not-installed (loop for x in installing-package-list
+                               when (not (package-installed-p x))
+                               collect x)))
 
-    (when not-installed
-      (package-refresh-contents)
-      (dolist (pkg-no-installed)
-        (package-install pkg))))
+      (when not-installed
+        (package-refresh-contents)
+        (dolist (pkg-no-installed)
+          (package-install pkg))))
+    )
     )
