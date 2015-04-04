@@ -19,7 +19,6 @@
       jedi
       popup
       python-environment
-      python-mode
       python-pep8
       scala-mode2
       5x5
@@ -179,6 +178,7 @@
       help-at-pt
       hex-util
       hexl
+      highlight-indentation
       hi-lock
       hideif
       hideshow
@@ -435,7 +435,6 @@
       yow
       zeroconf
       zone
-
       ))
 
   (let ((not-installed (loop for x in installing-package-list

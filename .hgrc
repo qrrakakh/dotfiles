@@ -1,0 +1,9 @@
+[ui]
+username=qrrakakh (Hiroaki KURAMAE) <hiroaki.kuramae@gmail.com>
+
+[extensions]
+color=
+pager=
+
+[pager]
+pager=LESS='FSRX' less

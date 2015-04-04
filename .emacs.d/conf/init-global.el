@@ -3,7 +3,7 @@
 
 ;; set indent size
 (setq tab-width 4)
-      
+
 ;; disable backup
 (setq make-backup-files nil)
 
@@ -116,15 +116,21 @@
   )
 
 ;; autoinsert
-(setq auto-insert-directory "~/.emacs.d/template/")
-(load "autoinsert" t)
-(setq auto-insert-alist
-      (append '(("\\.cc$" . "template.cc")
-                ("\\.c$" . "template.c")
-                ("\\.cpp" . "template.cc")
-                ("\\.py" . "template.py")
-                ("\\.tex" . "template.tex")
-                ("\\.rb" . "template.rb")
-                ("[Mm]akefile" . "Makefile.template"))
-              auto-insert-alist))
-(add-hook 'find-file-hooks 'auto-insert)
+(when (require 'autoinsert nil t)
+  (setq auto-insert-directory "~/.emacs.d/template/")
+  (setq auto-insert-alist
+        (append '(("\\.cc$" . "template.cc")
+                  ("\\.c$" . "template.c")
+                  ("\\.cpp" . "template.cc")
+                  ("\\.py" . "template.py")
+                  ("\\.tex" . "template.tex")
+                  ("\\.rb" . "template.rb")
+                  ("[Mm]akefile" . "Makefile.template"))
+                auto-insert-alist))
+  (add-hook 'find-file-hooks 'auto-insert)
+  (setq auto-insert-query nil)
+  )
+
+;; highlight-indentation
+(when (require 'highlight-indentation nil)
+  t)
