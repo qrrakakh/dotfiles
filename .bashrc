@@ -59,7 +59,7 @@ alias en='emacsclient -nw'
 
 function ff { diff $1~ $1 ; }
 function ffc { diff -c $1~ $1 ; }
-function venv-activate { source $1/bin/activate }
+function venv-activate { source $1/bin/activate; }
 function va { v -a "$@" | more ; }
 
 ## Misc.option
