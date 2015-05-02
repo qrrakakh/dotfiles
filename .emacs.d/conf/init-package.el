@@ -5,7 +5,7 @@
                ("melpa" . "http://melpa.milkbox.net/packages/") t)
   (add-to-list 'package-archives '
                ("marmalade" . "http://marmalade-repo.org/packages/"))
-  (setq package-user-dir "~/local/lib/emacs/package/")
+  (setq package-user-dir "~/.local/lib/emacs/package/")
   (package-initialize)
 
   (defvar installing-package-list
@@ -444,7 +444,7 @@
                  collect x)))
       (when not-installed
         (package-refresh-contents)
-        (dolist (pkg no-installed)
+        (dolist (pkg not-installed)
           (package-install pkg))))
     )
     )

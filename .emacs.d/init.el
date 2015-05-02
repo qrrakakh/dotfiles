@@ -38,7 +38,7 @@
 (add-to-load-path "~/.emacs.d/conf")
 
 ;;  Add "$HOME/local/emacs/site-lisp" and its subdirectory to load-path
-(defconst local-elisp-directory "~/local/lib/emacs" "The directory for my elisp file.")
+(defconst local-elisp-directory "~/.local/lib/emacs" "The directory for my elisp file.")
 
 (dolist (dir (let ((dir (expand-file-name local-elisp-directory)))
                (list dir (format "%s%d" dir emacs-major-version))))
