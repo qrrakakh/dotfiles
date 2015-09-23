@@ -14,7 +14,8 @@
       :group 'python-pep8)
     (add-hook 'python-mode-hook
               (function (lambda ()
-                          (local-set-key "\C-cp" 'python-pep8))))
+                          (local-set-key "\C-cp" 'python-pep8)
+                          (setq python-indent-offset 4))))
     )
   (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
   (setq interpreter-mode-alist
@@ -29,7 +30,7 @@
              (local-file (file-relative-name
                           temp-file
                           (file-name-directory buffer-file-name))))
-        (list "~/local/bin/pyck" (list local-file))))
+        (list "~/.local/bin/pyflymake" (list local-file))))
     (push '("\\.py\\'" flymake-pylint-init) flymake-allowed-file-name-masks)
     (add-hook 'python-mode-hook
               '(lambda ()
