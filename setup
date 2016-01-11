@@ -1,0 +1,14 @@
+#!/bin/bash
+
+function makelink () {
+    cwd=`dirname "${0}"`
+    expr "${0}" : "/.*" > /dev/null || cwd=`(cd "${cwd}" && pwd)`
+    rm -rf ${HOME}/${1}
+    ln -s ${cwd}/${1} ${HOME}/
+}
+
+
+for dotfile in .bashrc .emacs.d .gitconfig .gitignore  .hgrc  .screenrc  .vimrc  .zshrc
+do
+    makelink ${dotfile}
+done
