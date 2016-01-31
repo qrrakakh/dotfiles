@@ -19,13 +19,15 @@ COLOR_BLUE='\e[1;34m'
 COLOR_MAGENTA='\e[1;35m'
 COLOR_CYAN='\e[1;36m'
 COLOR_WHITE='\e[1;37m'
+COLOR_RESET='\[\033[0m\]'
 
 if [ -n "${SSH_CONNECTION}" ]; then
     PSCOLOR=${COLOR_RED}
 else
     PSCOLOR=${COLOR_BLUE}
 fi
-PS1="${PSCOLOR}[\u@\H] \w\n%\[\033[0m\] "
+
+PS1="${PSCOLOR}[\u@\H \D{%y/%m/%d %H:%M:%S}] \w\n%${COLOR_RESET} "
 
 unset COLOR_DEFAULT COLOR_RED COLOR_GREEN COLOR_YALLOW COLOR_BLUE\
  COLOR_MAGENTA COLOR_CYAN COLOR_WHITE COLOR_BLACK PSCOLOR
@@ -64,7 +66,9 @@ function va { v -a "$@" | more ; }
 
 ## Misc.option
 #
-HISTCONTROL=ignoredups
+unset HISTCONTROL
+HISTIGNORE=ls*:pwd:history*
+HISTTIMEFORMAT='%F %T '
 HISTFILESIZE=50000
 HISTSIZE=50000
 complete -cf sudo
