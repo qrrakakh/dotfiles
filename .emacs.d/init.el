@@ -90,7 +90,7 @@
 (load "init-ffpp")
 
 ;; For NTEmacs
-(when (and run-w32 (not run-meadow))
+(when run-w32 
   (load "init-ntemacs") )
 
 ;; For Linux
@@ -105,5 +105,4 @@
 ;; For OS X
 (when run-darwin
   (load "init-mac"))
-
 

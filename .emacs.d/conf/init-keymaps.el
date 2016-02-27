@@ -15,7 +15,7 @@
 (global-set-key "\C-\M-r" 'query-replace-regexp)
 
 (global-set-key "\C-xn" 'new-frame)
-(global-set-key "\C-xo" 'other-frame)
+(global-set-key "\C-xo" 'other-window)
 (global-set-key "\C-xk" 'kill-buffer-and-window)
 
 (global-set-key "\C-xE" 'flymake-display-err-menu-for-current-line)
