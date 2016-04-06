@@ -106,3 +106,5 @@
 (when run-darwin
   (load "init-mac"))
 
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)

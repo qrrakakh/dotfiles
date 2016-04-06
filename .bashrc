@@ -45,7 +45,7 @@ alias where="command -v"
 alias lsc='/bin/ls'
 alias la='ls -a'  
 alias lf="ls -F"
-alias ll='ls -l'
+alias ll='ls -la'
 
 alias du="du -h"
 alias df="df -h"
@@ -67,7 +67,7 @@ function va { v -a "$@" | more ; }
 ## Misc.option
 #
 unset HISTCONTROL
-HISTIGNORE=ls*:pwd:history*
+HISTIGNORE="ll:ll *:la:la *:lf:lf *:lsc:lsc *:ls:ls *:pwd:history:history *"
 HISTTIMEFORMAT='%F %T '
 HISTFILESIZE=50000
 HISTSIZE=50000

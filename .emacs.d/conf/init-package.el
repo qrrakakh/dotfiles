@@ -30,6 +30,7 @@
       ange-ftp
       animate
       ansi-color
+      anything
       antlr-mode
       arc-mode
       array
