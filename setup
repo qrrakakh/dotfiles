@@ -13,6 +13,6 @@ do
     makelink ${dotfile}
 done
 
-myself_path=`readlink -f "${0}"`
-cwd=`dirname "${myself_path}"`
-echo ". ${cwd}/.bashrc" >> ~/.bashrc
+cwd_rel=`dirname "${myself_path}"`
+cwd_abs=`cd "${cwd_rel}";pwd`
+echo ". ${cwd_abs}/.bashrc" >> ~/.bashrc
