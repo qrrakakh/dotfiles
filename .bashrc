@@ -1,13 +1,3 @@
-## Environmetal Variable configulation
-#
-export LESS=MrXE
-export PATH=$HOME/local/bin:$PATH
-export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
-export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
-export LIBRARY_PATH=$HOME/local/lib:$LIBRARY_PATH
-export LD_LIBRARY_PATH=$LIBRARY_PATH
-export EDITOR='emacsclient -nw'
-
 ## prompt
 #
 COLOR_DEFAULT='\e[0m'
@@ -67,8 +57,8 @@ function va { v -a "$@" | more ; }
 ## Misc.option
 #
 unset HISTCONTROL
-HISTIGNORE="ll:ll *:la:la *:lf:lf *:lsc:lsc *:ls:ls *:pwd:history:history *"
 HISTTIMEFORMAT='%F %T '
 HISTFILESIZE=50000
 HISTSIZE=50000
+HISTCONTROL=ignoreboth
 complete -cf sudo

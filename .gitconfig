@@ -6,3 +6,5 @@
 	ui = auto
 [core]
 	excludesfile = /home/qrrakakh/.gitignore
+[push]
+	default = simple
