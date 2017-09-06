@@ -7,6 +7,18 @@ function makelink () {
     ln -s ${cwd}/${1} ${HOME}/
 }
 
+function addline() {
+    linestr=$1
+    tgtfile=$2
+
+    strcnt=`cat "${tgtfile}" 2>/dev/null | grep "${linestr}" | wc -l`
+
+    if [ 0 -eq ${strcnt} ]
+    then
+        echo "${linestr}" >> "${tgtfile}"
+    fi
+}
+
 
 for dotfile in .emacs.d .gitconfig .gitignore  .hgrc  .screenrc  .vimrc  .zshrc
 do
@@ -15,4 +27,4 @@ done
 
 cwd_rel=`dirname "${myself_path}"`
 cwd_abs=`cd "${cwd_rel}";pwd`
-echo ". ${cwd_abs}/.bashrc" >> ~/.bashrc
+addline ". \"${cwd_abs}/.bashrc\"" ~/.bashrc
