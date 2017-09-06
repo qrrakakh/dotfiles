@@ -24,9 +24,11 @@ unset COLOR_DEFAULT COLOR_RED COLOR_GREEN COLOR_YALLOW COLOR_BLUE\
 
 ## aliases and functions
 #
-if [ $TERM == "dumb" ]; then
+if [ "$(uname)" == 'Darwin' ]; then
+    alias ls='ls -CF'
+elif [ $TERM == "dumb" ]; then
     #stty -echo nl
-    alias ls='ls -F -CF --color=never --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
+    alias ls='ls -CF --color=never --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
 else
     alias ls='ls -F --show-control-chars --color -CF --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
 fi
