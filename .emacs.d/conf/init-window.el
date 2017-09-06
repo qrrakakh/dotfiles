@@ -18,7 +18,7 @@
        (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
        (setq initial-frame-alist
-             (append '((font . "Ricty:style=Regular:size=16") 
+             (append '((font . "Ricty Discord:style=Regular:size=16") 
                        (width . 80)
                        (height . 35))
                      initial-frame-alist))

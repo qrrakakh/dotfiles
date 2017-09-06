@@ -20,6 +20,12 @@
 
 (global-set-key "\C-xE" 'flymake-display-err-menu-for-current-line)
 
+;; Mac: Right Command as Meta
+(when (eq system-type 'darwin)
+  (setq mac-option-modifier 'meta)
+  (setq mac-right-command-modifier 'meta)
+  )
+
 ;; Let auto-indent when enter-key typed (same as the prev. line)
 (global-set-key "\C-m" 'newline-and-indent)
 (setq indent-line-function 'indent-relative-maybe)
