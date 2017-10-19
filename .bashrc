@@ -23,7 +23,8 @@ unset COLOR_DEFAULT COLOR_RED COLOR_GREEN COLOR_YALLOW COLOR_BLUE\
  COLOR_MAGENTA COLOR_CYAN COLOR_WHITE COLOR_BLACK PSCOLOR
 
 ## aliases and functions
-#
+
+# ls: hide OS-specific files
 if [ "$(uname)" == 'Darwin' ]; then
     alias ls='ls -CF'
 elif [ $TERM == "dumb" ]; then
@@ -43,18 +44,39 @@ alias du="du -h"
 alias df="df -h"
 
 alias screen='screen -U'
-alias javac='javac -J-Dfile.encoding=utf8'
 alias bye='exit'
-alias g++11='g++ --std=c++0x'
-alias clang++11='clang++ --std=c++0x'
-
-alias ec='emacsclient -c'
-alias en='emacsclient -nw'
 
 function ff { diff $1~ $1 ; }
 function ffc { diff -c $1~ $1 ; }
-function venv-activate { source $1/bin/activate; }
 function va { v -a "$@" | more ; }
+
+# Emacs
+alias ec='emacsclient -c'
+alias en='emacsclient -nw'
+
+# Development
+alias javac='javac -J-Dfile.encoding=utf8'
+alias g++11='g++ --std=c++0x'
+alias clang++11='clang++ --std=c++0x'
+
+# Python3
+function venv-activate { source $1/bin/activate; }
+function venv { 
+    venv_dir="${1:-venv}"
+    get_pip_url="https://bootstrap.pypa.io/get-pip.py"
+    pip_required_debian_version=("jessie/sid" "stretch/sid");
+
+    python3 -m venv "${venv_dir}" --without-pip --system-site-packages
+    source "${venv_dir}/bin/activate"
+
+    if [ -e /etc/debian_version ]; then
+        debian_version=`cat /etc/debian_version`
+        if [ 1 -ge `echo ${pip_required_debian_version[@]} | grep "${debian_version}" | wc -l` ];then
+            echo "Setting up pip..."
+            curl -L ${get_pip_url} | python3
+        fi
+    fi
+}
 
 ## Misc.option
 #
