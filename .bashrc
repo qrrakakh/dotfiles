@@ -66,16 +66,18 @@ function venv {
     get_pip_url="https://bootstrap.pypa.io/get-pip.py"
     pip_required_debian_version=("jessie/sid" "stretch/sid");
 
-    python3 -m venv "${venv_dir}" --without-pip --system-site-packages
-    source "${venv_dir}/bin/activate"
-
     if [ -e /etc/debian_version ]; then
         debian_version=`cat /etc/debian_version`
         if [ 1 -ge `echo ${pip_required_debian_version[@]} | grep "${debian_version}" | wc -l` ];then
+            python3 -m venv "${venv_dir}" --without-pip
+            source "${venv_dir}/bin/activate"
             echo "Setting up pip..."
             curl -L ${get_pip_url} | python3
+            deactivate
+            return
         fi
     fi
+    python3 -m venv "${venv_dir}"
 }
 
 ## Misc.option
