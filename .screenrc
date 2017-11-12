@@ -1,6 +1,6 @@
 escape ^Oo
-screen 1 emacsclient -nw
-screen 0
+
+chdir
 
 markkeys h=^B:l=^F:$=^E:^D=^V
 
