@@ -11,13 +11,14 @@ COLOR_CYAN='\e[1;36m'
 COLOR_WHITE='\e[1;37m'
 COLOR_RESET='\[\033[0m\]'
 
-if [ -n "${SSH_CONNECTION}" ]; then
-    PSCOLOR=${COLOR_RED}
-else
-    PSCOLOR=${COLOR_BLUE}
-fi
+#if [ -n "${SSH_CONNECTION}" ]; then
+#    PSCOLOR=${COLOR_RED}
+#else
+#    PSCOLOR=${COLOR_BLUE}
+#fi
 
-PS1="${PSCOLOR}[\u@\H \D{%y/%m/%d %H:%M:%S}] \w\n%${COLOR_RESET} "
+#PS1="${PSCOLOR}[\u@\H \D{%y/%m/%d %H:%M:%S}] \w${COLOR_RESET}\n% "
+PS1="[\u@\H \D{%y/%m/%d %H:%M:%S}] \w\n% "
 
 unset COLOR_DEFAULT COLOR_RED COLOR_GREEN COLOR_YALLOW COLOR_BLUE\
  COLOR_MAGENTA COLOR_CYAN COLOR_WHITE COLOR_BLACK PSCOLOR
