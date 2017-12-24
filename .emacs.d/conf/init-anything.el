@@ -6,6 +6,8 @@
               anything-c-source-google-suggest
               anything-c-source-bookmarks
               anything-c-source-file-name-history
+              anything-c-source-files-in-current-dir
+              anything-c-source-recentf
               anything-c-source-man-pages
               anything-c-source-emacs-commands
               anything-c-source-emacs-functions
