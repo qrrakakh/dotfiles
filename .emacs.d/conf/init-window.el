@@ -2,7 +2,7 @@
 ;;;; Window環境用の設定
 (menu-bar-mode -1)
 
-(cond (window-system
+;(cond (window-system
        ;; ツールバー削除
        (tool-bar-mode -1)
   
@@ -26,5 +26,5 @@
 
        
        (add-to-list 'default-frame-alist '(alpha . 95))
-))
+;))
 
