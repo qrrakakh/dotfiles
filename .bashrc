@@ -52,8 +52,8 @@ function ffc { diff -c $1~ $1 ; }
 function va { v -a "$@" | more ; }
 
 # Emacs
-alias ec='emacsclient -c'
-alias en='emacsclient -nw'
+alias ec='emacsclient -c -a ""'
+alias en='emacsclient -nw -a ""'
 
 # Development
 alias javac='javac -J-Dfile.encoding=utf8'
