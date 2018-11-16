@@ -1,6 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Window環境用の設定
 (menu-bar-mode -1)
+(setq ring-bell-function 'ignore)
 
 ;(cond (window-system
        ;; ツールバー削除
