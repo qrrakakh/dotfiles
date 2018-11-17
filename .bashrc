@@ -16,12 +16,12 @@ COLOR_RESET='\[\033[0m\]'
 #else
 #    PSCOLOR=${COLOR_BLUE}
 #fi
-
 #PS1="${PSCOLOR}[\u@\H \D{%y/%m/%d %H:%M:%S}] \w${COLOR_RESET}\n% "
+
 PS1="[\u@\H \D{%y/%m/%d %H:%M:%S}] \w\n% "
 
-unset COLOR_DEFAULT COLOR_RED COLOR_GREEN COLOR_YALLOW COLOR_BLUE\
- COLOR_MAGENTA COLOR_CYAN COLOR_WHITE COLOR_BLACK PSCOLOR
+unset COLOR_DEFAULT COLOR_RED COLOR_GREEN COLOR_YALLOW COLOR_BLUE \
+      COLOR_MAGENTA COLOR_CYAN COLOR_WHITE COLOR_BLACK PSCOLOR
 
 ## aliases and functions
 
@@ -79,6 +79,19 @@ function venv {
         fi
     fi
     python3 -m venv "${venv_dir}"
+}
+
+
+# AtCoder
+function atc_cc {
+    prog_prefix=$1
+    g++11 -Wall ./${prog_prefix}.cc -o ./${prog_prefix}.out
+    if [ "$?" -ne 0 ];
+    then
+        return
+    fi
+    cat ./${prog_prefix}.txt | ./${prog_prefix}.out
+    rm ./${prog_prefix}.out
 }
 
 ## Misc.option
