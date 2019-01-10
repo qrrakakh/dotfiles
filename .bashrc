@@ -60,6 +60,16 @@ alias javac='javac -J-Dfile.encoding=utf8'
 alias g++11='g++ --std=c++0x'
 alias clang++11='clang++ --std=c++0x'
 
+# screen (for WSL)
+export SCREENDIR=${HOME}/.screen
+
+if [ ! -d ${SCREENDIR} ]
+then
+    rm -f ${SCREENDIR}
+    mkdir ${SCREENDIR}
+    chmod 700 ${SCREENDIR}
+fi
+
 # Python3
 function venv-activate { source $1/bin/activate; }
 function venv { 
