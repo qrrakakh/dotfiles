@@ -93,16 +93,37 @@ function venv {
 
 
 # AtCoder
-function atc_cc {
-    prog_prefix=$1
-    g++11 -Wall ./${prog_prefix}.cc -o ./${prog_prefix}.out
-    if [ "$?" -ne 0 ];
-    then
-        return
-    fi
-    cat ./${prog_prefix}.txt | ./${prog_prefix}.out
-    rm ./${prog_prefix}.out
+function atc_cc_gen {
+  prog_prefix=$1;
+  test_count=$2;
+  touch ${prog_prefix}.cc;
+  for i in `seq 1 ${test_count}`
+  do
+    touch ${prog_prefix}_${i}.txt;
+  done
 }
+
+function atc_cc_clean {
+  rm -f  ./${prog_prefix}.out 2>/dev/null;
+}
+
+function atc_cc { 
+  prog_prefix=$1;
+  trap 'atc_cc_clean' 1 2 3 15;
+  g++ --std=c++0x -Wall ./${prog_prefix}.cc -o ./${prog_prefix}.out;
+  if [ "$?" -ne 0 ]; then
+     return;
+  fi;
+  for file in ./${prog_prefix}*.txt
+  do 
+    echo "---TEST ${file}";
+    cat ${file} | ./${prog_prefix}.out;
+    echo "----------";
+  done
+  atc_cc_clean
+}
+
+
 
 ## Misc.option
 #
