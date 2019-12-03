@@ -20,7 +20,7 @@ function addline() {
 }
 
 
-for dotfile in .emacs.d .gitconfig .gitignore  .hgrc  .screenrc  .vimrc  .zshrc
+for dotfile in .emacs.d .gitconfig .gitignore  .hgrc  .tmux.conf .screenrc  .vimrc  .zshrc
 do
     makelink ${dotfile}
 done
