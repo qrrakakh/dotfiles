@@ -18,7 +18,7 @@ COLOR_RESET='\[\033[0m\]'
 #fi
 #PS1="${PSCOLOR}[\u@\H \D{%y/%m/%d %H:%M:%S}] \w${COLOR_RESET}\n% "
 
-PS1="[\u@\H \D{%y/%m/%d %H:%M:%S}] \w\n% "
+PS1="[\u@\H \D{%y/%m/%d %H:%M:%S}] \w\n$ "
 
 unset COLOR_DEFAULT COLOR_RED COLOR_GREEN COLOR_YALLOW COLOR_BLUE \
       COLOR_MAGENTA COLOR_CYAN COLOR_WHITE COLOR_BLACK PSCOLOR
