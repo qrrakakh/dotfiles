@@ -23,3 +23,20 @@ set ruler
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set linespace=0
 set showcmd
+"------ function
+let s:appearance_status=1
+
+command! SwAppear call s:sw_appear()
+function! s:sw_appear()
+  if s:appearance_status == 0
+    set listchars=eol:$,tab:>\ ,extends:<
+    set number
+    syntax on
+  else
+    set listchars=
+    set nonumber
+    syntax off
+  endif
+
+let s:appearance_status=1-s:appearance_status
+endfunction

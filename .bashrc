@@ -41,6 +41,11 @@ alias la='ls -a'
 alias lf="ls -F"
 alias ll='ls -la'
 
+if [ -x `which vim` ]; then
+    alias vi='vim'
+    alias view="vim -M"
+fi
+
 alias du="du -h"
 alias df="df -h"
 
