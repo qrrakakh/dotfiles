@@ -128,6 +128,70 @@ function atc_cc {
   atc_cc_clean
 }
 
+## Commandline tools
+function command_exist_warning {
+    cmd=$1
+    if [ -x "`which ${cmd}`" ]; then
+        rtn=0
+    else 
+        echo Warning: "${cmd} is not installed." `which ${cmd}`
+        rtn=1
+    fi
+}
+
+### fzf
+command_exist_warning fzf
+fzf_exist=$rtn
+if [ "0" -eq "$fzf_exist" ]; then
+    fe() {
+            local files
+                IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+                    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+    }
+    fr() {
+            local files
+                IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+                    [[ -n "$files" ]] && ${EDITOR:-view} "${files[@]}"
+    }
+    # fbr - checkout git branch (including remote branches)
+    fbr() {
+          local branches branch
+            branches=$(git branch --all | grep -v HEAD) &&
+              branch=$(echo "$branches" |
+                         fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+                           git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+    }
+    # fcd - cd to selected directory
+    fcd() {
+          local dir
+          dir=$(find ${1:-.} -path '*/\.*' -prune \
+              -o -type d -print 2> /dev/null | fzf +m) &&
+            cd "$dir"
+    }
+    fssh() {
+        local sshLoginHost
+        sshLoginHost=`cat ~/.ssh/config | grep -i ^host | awk '{print $2}' | fzf`
+
+        if [ "$sshLoginHost" = "" ]; then
+        # ex) Ctrl-C.
+            return 1
+        fi
+        ssh ${sshLoginHost}
+    }
+fi
+
+### rg
+command_exist_warning rg
+rg_exist=$rtn
+if [ "0" -eq "$rg_exist" ]; then
+    command_exist_warning expect
+    expect_exist=$rtn
+    if [ "0" -eq "$expect_exist" ]; then
+        rgl() {
+                unbuffer rg $@ | less -R
+        }
+    fi
+fi
 
 
 ## Misc.option
