@@ -144,28 +144,28 @@ command_exist_warning fzf
 fzf_exist=$rtn
 if [ "0" -eq "$fzf_exist" ]; then
     fe() {
-            local files
-                IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-                    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+        local files
+        IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+        [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
     }
     fr() {
-            local files
-                IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-                    [[ -n "$files" ]] && ${EDITOR:-view} "${files[@]}"
+        local files
+        IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+        [[ -n "$files" ]] && ${EDITOR:-view} "${files[@]}"
     }
     # fbr - checkout git branch (including remote branches)
     fbr() {
-          local branches branch
-            branches=$(git branch --all | grep -v HEAD) &&
-              branch=$(echo "$branches" |
-                         fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-                           git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+        local branches branch
+        branches=$(git branch --all | grep -v HEAD) &&
+        branch=$(echo "$branches" |
+            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+        git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
     }
     # fcd - cd to selected directory
     fcd() {
-          local dir
-          dir=$(find ${1:-.} -path '*/\.*' -prune \
-              -o -type d -print 2> /dev/null | fzf +m) &&
+        local dir
+        dir=$(find ${1:-.} -path '*/\.*' -prune \
+            -o -type d -print 2> /dev/null | fzf +m) &&
             cd "$dir"
     }
     fssh() {
