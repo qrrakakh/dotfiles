@@ -193,6 +193,33 @@ if [ "0" -eq "$rg_exist" ]; then
     fi
 fi
 
+### rg+fzf+bat
+command_exist_warning batcat
+bat_exist=$rtn
+if [ "0" -eq "$fzf_exist" ] && [ "0" -eq "$rg_exist" ] && [ "0" -eq "$bat_exist" ];then
+    rgp() {
+        local v list filepath linenum
+        v=`rg --line-number --with-filename --field-match-separator ':' "$@" 2>/dev/null\
+        | fzf --preview "batcat --color=always {1} --highlight-line {2}" \
+        --delimiter : --preview-window=~3,+{2}+3/2`
+        if [ "0" -ne $? ]; then
+            return
+        fi
+        list=(${v//:/ })
+        filepath=${list[0]}
+        linenum=${list[1]}
+        (( 
+          (${linenum}<13)?(
+            linenum_jump=linenum
+          ):(
+            linenum_jump=linenum-13
+          )
+        )) 
+        batcat --color=always "${filepath}" --highlight-line ${linenum} --pager=never --style=plain | less -NR +${linenum_jump}
+    }
+
+  alias view='batcat --color=always --pager "less -NR" --style=plain'
+fi
 
 ## Misc.option
 #
