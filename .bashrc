@@ -210,12 +210,25 @@ if [ "0" -eq "$fzf_exist" ] && [ "0" -eq "$rg_exist" ] && [ "0" -eq "$bat_exist"
         linenum=${list[1]}
         (( 
           (${linenum}<13)?(
-            linenum_jump=linenum
+            linenum_jump=1
           ):(
             linenum_jump=linenum-13
           )
         )) 
         batcat --color=always "${filepath}" --highlight-line ${linenum} --pager=never --style=plain | less -NR +${linenum_jump}
+        echo ${filepath}
+    }
+
+    fgp() {
+        local filepath
+        filepath=`find -type f | rg "$@" 2>/dev/null\
+        | fzf --preview "batcat --color=always {1}" \
+        --preview-window=~3,+{2}+3/2`
+        if [ "0" -ne $? ]; then
+            return
+        fi
+        batcat --color=always "${filepath}" --pager=never --style=plain | less -NR
+        echo ${filepath}
     }
 
   alias view='batcat --color=always --pager "less -NR" --style=plain'
