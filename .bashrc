@@ -1,3 +1,7 @@
+## Identify if bash is intreractive, else return
+if [ -z "$PS1" ]; then
+    return
+fi
 ## prompt
 #
 COLOR_DEFAULT='\e[0m'
