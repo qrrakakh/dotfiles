@@ -238,6 +238,9 @@ if [ "0" -eq "$fzf_exist" ] && [ "0" -eq "$rg_exist" ] && [ "0" -eq "$bat_exist"
   alias view='batcat --color=always --pager "less -NR" --style=plain'
 fi
 
+## PATH
+export PATH=$PATH:~/.local/bin
+
 ## Misc.option
 #
 unset HISTCONTROL

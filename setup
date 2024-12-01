@@ -1,10 +1,10 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+
 function makelink () {
-    cwd=`dirname "${0}"`
-    expr "${0}" : "/.*" > /dev/null || cwd=`(cd "${cwd}" && pwd)`
     rm -rf ${HOME}/${1}
-    ln -s ${cwd}/${1} ${HOME}/
+    ln -s ${SCRIPT_DIR}/${1} ${2}/
 }
 
 function addline() {
@@ -19,12 +19,21 @@ function addline() {
     fi
 }
 
-
+## dotfiles
 for dotfile in .emacs.d .gitconfig .gitignore  .hgrc  .tmux.conf .screenrc  .vimrc  .zshrc
 do
-    makelink ${dotfile}
+    makelink ${dotfile} ${HOME}
 done
 
-cwd_rel=`dirname "${myself_path}"`
-cwd_abs=`cd "${cwd_rel}";pwd`
-addline ". \"${cwd_abs}/.bashrc\"" ~/.bashrc
+## helper scripts
+local_bin=${HOME}/.local/bin
+mkdir -p ${local_bin}
+
+for binfile in tmux-pane-border
+do
+    makelink ${binfile} ${local_bin}
+    chmod +x ${local_bin}/${binfile}
+done
+
+## bashrc
+addline ". \"${SCRIPT_DIR}/.bashrc\"" ~/.bashrc
