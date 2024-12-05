@@ -182,6 +182,25 @@ if [ "0" -eq "$fzf_exist" ]; then
         fi
         ssh ${sshLoginHost}
     }
+    # tmux attach with fzf
+    ta() {
+        local session session_count
+        session_count=`tmux list-sessions | wc -l`
+        if [ 0 -eq $session_count ]; then
+            tmux new-session -s Default
+            return 0
+        elif [ 1 -eq $session_count ]; then
+            session=`tmux list-sessions | cut -d: -f1`
+        else
+            session=`tmux list-sessions | fzf | cut -d: -f1`
+            if [ "$session" = "" ]; then
+            # ex) Ctrl-C.
+                return 1
+            fi
+        fi
+        echo 'Attaching to '$session
+        tmux attach -t $session
+    }
 fi
 
 ### rg
