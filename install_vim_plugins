@@ -1,0 +1,10 @@
+#!/bin/bash
+
+VIM_PLUGIN_PATH=${HOME}/.vim/pack/plugins
+
+if [ ! -d ${VIM_PLUGIN_PATH} ]; then
+    echo "Installing vim color scheme..."
+    mkdir -p ${VIM_PLUGIN_PATH}/start
+    git clone https://github.com/zoomlogo/github-dimmed.vim.git ${VIM_PLUGIN_PATH}/start/github-dimmed
+    git clone https://github.com/jamespwilliams/bat.vim.git ${VIM_PLUGIN_PATH}/start/bat.vim
+fi
