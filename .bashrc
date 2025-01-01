@@ -185,6 +185,13 @@ if [ "0" -eq "$fzf_exist" ]; then
     # tmux attach with fzf
     ta() {
         local session session_count
+        if [ -n "$TMUX" ]; then
+            maybe_tmux_pid=$(echo $TMUX | cut -d, -f2)
+            if [ -e /proc/${maybe_tmux_pid} ]; then
+                echo 'sessions should be nested with care, unset $TMUX to force'
+                return 1
+            fi
+        fi
         session_count=`tmux list-sessions | wc -l`
         if [ 0 -eq $session_count ]; then
             tmux new-session -s Default
