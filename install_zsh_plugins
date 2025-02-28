@@ -1,0 +1,9 @@
+#!/bin/bash
+
+ZSH_PLUGIN_PATH=${HOME}/.zsh
+
+if [ ! -d ${ZSH_PLUGIN_PATH} ]; then
+    echo "Installing zsh plugins..."
+    mkdir -p ${ZSH_PLUGIN_PATH}/start
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_PLUGIN_PATH}/zsh-autosuggestions
+fi
