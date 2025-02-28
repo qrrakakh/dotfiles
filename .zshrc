@@ -399,7 +399,7 @@ if [ "0" -eq "$fzf_exist" ]; then
             fi
         fi
         echo 'Attaching to '$session
-        tmux attach -t $session
+        tmux attach -t "$session"
     }
 fi
 
