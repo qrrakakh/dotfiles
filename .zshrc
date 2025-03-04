@@ -1,5 +1,5 @@
 ## Environment variable configuration
-export LESS=MrXE
+export LESS=MXR
 export PATH=$HOME/local/bin:$HOME/.local/bin:$PATH
 export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
@@ -128,8 +128,6 @@ setopt list_packed
 setopt noautoremoveslash
 # Disable beep
 setopt no_beep
-# share history between the multi terminal
-setopt share_history
 # completion
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
 			     /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
@@ -148,16 +146,6 @@ bindkey "^[[1~" beginning-of-line # Home gets to line head
 bindkey "^[[4~" end-of-line # End gets to line end
 bindkey "^[[3~" delete-char # Del
 
-# historical backward/forward search with linehead string binded to ^P/^N
-#
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end
-bindkey "\\ep" history-beginning-search-backward-end
-bindkey "\\en" history-beginning-search-forward-end
-
 # reverse menu completion binded to Shift-Tab
 #
 bindkey "\e[Z" reverse-menu-complete
@@ -169,7 +157,18 @@ HISTFILE=${HOME}/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
 setopt hist_ignore_dups     # ignore duplication command history list
-#setopt share_history        # share command history data
+setopt share_history        # share command history data
+
+# historical backward/forward search with linehead string binded to ^P/^N
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
+bindkey "\\ep" history-beginning-search-backward-end
+bindkey "\\en" history-beginning-search-forward-end
+alias history="history -t '[%Y/%m/%d %H:%M:%S]'"
+
 
 ## Completion configuration
 #
@@ -340,6 +339,27 @@ function command_exist_warning {
 command_exist_warning fzf
 fzf_exist=$rtn
 if [ "0" -eq "$fzf_exist" ]; then
+
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+    ## Override history keybind to add timestamp
+    fzf-history-widget() {
+        local selected num ret
+        setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
+        selected=( $(fc -rl -t '[%Y/%m/%d %H:%M:%S]' 1 | 
+            awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
+            FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} ${FZF_DEFAULT_OPTS-} -n2..,.. --scheme=history --bind=ctrl-r:toggle-sort,ctrl-z:ignore ${FZF_CTRL_R_OPTS-} --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+        ret=$?
+        if [ -n "$selected" ]; then
+            num=$selected[1]
+            if [ -n "$num" ]; then
+                zle vi-fetch-history -n $num
+            fi
+        fi
+        zle reset-prompt
+        return $ret
+    }
+
     fe() {
         local files
         IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
