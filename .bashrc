@@ -31,7 +31,7 @@ unset COLOR_DEFAULT COLOR_RED COLOR_GREEN COLOR_YALLOW COLOR_BLUE \
 
 # ls: hide OS-specific files
 if [ "$(uname)" == 'Darwin' ]; then
-    alias ls='ls -CF'
+    alias ls='ls -CFGw'
 elif [ $TERM == "dumb" ]; then
     #stty -echo nl
     alias ls='ls -CF --color=never --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
