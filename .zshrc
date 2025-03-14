@@ -247,19 +247,16 @@ setopt complete_aliases     # aliased ls needs if file/dir completions work
 # aliases and functions
 case "${OSTYPE}" in
 freebsd*|darwin*)
-        #alias ls="ls -G -w"
-        alias ls='ls -F -GF --color --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
+        alias ls="ls -CFGw"
         ;;
 linux*)
-        #alias ls="ls --color"
-        alias ls='ls -F -GF --color --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
+        alias ls='ls -CF --color --hide="\$RECYCLE.BIN" --hide="System Volume Information" --hide="ntuser*" --hide="NTUSER*" --hide="Thumbs.db"'
     ;;
 esac
 
 alias where="command -v"
 alias lsc='/bin/ls'
 alias la='ls -a'  
-alias lf="ls -F"
 alias ll='ls -l'
 
 alias du="du -h"
@@ -327,7 +324,7 @@ nvm() {
 ## Commandline tools
 function command_exist_warning {
     cmd=$1
-    if [ -x "`which ${cmd}`" ]; then
+    if {[ -x "`which ${cmd}`" ] || [ 1 -eq `alias ${cmd} | wc -l` ]}; then
         rtn=0
     else 
         echo Warning: "${cmd} is not installed." `which ${cmd}`
@@ -437,6 +434,9 @@ if [ "0" -eq "$rg_exist" ]; then
 fi
 
 ### rg+fzf+bat
+if {[ ! -x "`which batcat`" ] && [ -x "`which bat`" ]}; then
+    alias batcat=bat
+fi
 command_exist_warning batcat
 bat_exist=$rtn
 if [ "0" -eq "$fzf_exist" ] && [ "0" -eq "$rg_exist" ] && [ "0" -eq "$bat_exist" ];then
