@@ -168,6 +168,7 @@ bindkey "^n" history-beginning-search-forward-end
 bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 alias history="history -t '[%Y/%m/%d %H:%M:%S]'"
+alias xssh='TERM=xterm-256color ssh'
 
 
 ## Completion configuration

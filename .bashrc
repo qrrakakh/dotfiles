@@ -68,6 +68,7 @@ alias en='emacsclient -nw -a ""'
 alias javac='javac -J-Dfile.encoding=utf8'
 alias g++11='g++ --std=c++0x'
 alias clang++11='clang++ --std=c++0x'
+alias xssh='TERM=xterm-256color ssh'
 
 # screen (for WSL)
 export SCREENDIR=${HOME}/.screen
