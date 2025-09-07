@@ -47,6 +47,7 @@ autoload -U add-zsh-hook
 function preexec_hook {
     case "$2" in
         *git*)
+            # Update git branch info after git-related command was executed
             PR_GIT_UPDATE=1
             ;;
     esac    
@@ -54,6 +55,7 @@ function preexec_hook {
 add-zsh-hook preexec preexec_hook
 
 function chpwd_hook {
+    # Update git branch info after directory change
     PR_GIT_UPDATE=1
 }
 add-zsh-hook chpwd chpwd_hook
@@ -62,9 +64,12 @@ function precmd_hook {
     if [[ -n "$PR_GIT_UPDATE" ]]; then
         update_git_branch_info
     fi
+    PR_GIT_UPDATE=0
 }
 add-zsh-hook precmd precmd_hook
 
+# Initial update of git branch info
+PR_GIT_UPDATE=1
 
 function update_git_branch_info {
     local name st color
@@ -157,7 +162,7 @@ HISTFILE=${HOME}/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
 setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
+# setopt share_history        # share command history data
 
 # historical backward/forward search with linehead string binded to ^P/^N
 autoload history-search-end
@@ -453,11 +458,11 @@ if [ "0" -eq "$fzf_exist" ] && [ "0" -eq "$rg_exist" ] && [ "0" -eq "$bat_exist"
         filepath=${list[0]}
         linenum=${list[1]}
         (( 
-          (${linenum}<13)?(
+            (${linenum}<13)?(
             linenum_jump=1
-          ):(
+            ):(
             linenum_jump=linenum-13
-          )
+            )
         )) 
         batcat --color=always "${filepath}" --highlight-line ${linenum} --pager=never --style=plain | less -NR +${linenum_jump}
         echo ${filepath}
@@ -475,5 +480,27 @@ if [ "0" -eq "$fzf_exist" ] && [ "0" -eq "$rg_exist" ] && [ "0" -eq "$bat_exist"
         echo ${filepath}
     }
 
-  alias view='batcat --color=always --pager "less -NR" --style=plain'
+    alias view='batcat --color=always --pager "less -NR" --style=plain'
 fi
+
+# tmux
+tmux_default_session_name=Default
+tkill() {
+    if [ -n "$TMUX" ]; then
+        maybe_tmux_pid=$(echo $TMUX | cut -d, -f2)
+        if [ -e /proc/${maybe_tmux_pid} ]; then
+
+            session_name=$(tmux display-message -p '#S')
+            if [ $session_name = ${tmux_default_session_name} ]; then
+                echo "You are in the default session"
+                return
+            elif read -q "yn?Switch to ${tmux_default_session_name} and kill ${session_name}?: "; then
+                tmux switch-client -t ${tmux_default_session_name}
+                tmux kill-session -t ${session_name}
+                return
+            fi
+
+        fi
+    fi
+    echo "You are not in tmux"
+}
