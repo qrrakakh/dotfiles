@@ -195,7 +195,9 @@ if [ "0" -eq "$fzf_exist" ]; then
         fi
         session_count=`tmux list-sessions | wc -l`
         if [ 0 -eq $session_count ]; then
+            pushd $HOME
             tmux new-session -s Default
+            popd
             return 0
         elif [ 1 -eq $session_count ]; then
             session=`tmux list-sessions | cut -d: -f1`
@@ -207,7 +209,9 @@ if [ "0" -eq "$fzf_exist" ]; then
             fi
         fi
         echo 'Attaching to '$session
+        pushd $HOME
         tmux attach -t "$session"
+        popd
     }
 fi
 
