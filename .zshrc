@@ -503,6 +503,7 @@ tkill() {
                 tmux kill-session -t ${session_name}
                 return
             fi
+            return
 
         fi
     fi
