@@ -175,6 +175,8 @@ bindkey "\\en" history-beginning-search-forward-end
 alias history="history -t '[%Y/%m/%d %H:%M:%S]'"
 alias xssh='TERM=xterm-256color ssh'
 
+# disable C-d to logoff
+setopt ignoreeof
 
 ## Completion configuration
 #
