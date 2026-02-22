@@ -511,3 +511,19 @@ tkill() {
     fi
     echo "You are not in tmux"
 }
+
+# ghq
+command_exist_warning ghq
+ghq_exist=$rtn
+if [ "0" -eq "$fzf_exist" ] && [ "0" -eq "$ghq_exist" ] ;then
+    function ghq-fzf() {
+        local src=$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*")
+        if [ -n "$src" ]; then
+            BUFFER="cd $(ghq root)/$src"
+            zle accept-line
+        fi
+        zle -R -c
+    }
+    zle -N ghq-fzf
+    bindkey '^g' ghq-fzf
+fi
