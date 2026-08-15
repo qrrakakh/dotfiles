@@ -192,7 +192,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ## zsh editor
 #
-autoload zed
+#autoload zed
 
 
 ## Prediction configuration
