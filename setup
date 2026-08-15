@@ -45,3 +45,13 @@ addline "[ -f ${SCRIPT_DIR}/.zshrc ] && source ${SCRIPT_DIR}/.zshrc" ~/.zshrc
 source ${SCRIPT_DIR}/install_vim_plugins
 source ${SCRIPT_DIR}/install_tmux_plugins
 source ${SCRIPT_DIR}/install_zsh_plugins
+
+## NeoVim
+NEOVIM_ROOT=${HOME}/.config/nvim
+mkdir -p ${NEOVIM_ROOT}/lua
+ln -s ${SCRIPT_DIR}/nvim/init.lua ${NEOVIM_ROOT}/init.lua
+for vimlua in ${SCRIPT_DIR}/nvim/lua/*.lua
+do
+    ln -s ${vimlua} ${NEOVIM_ROOT}/lua/
+done
+touch ${NEOVIM_ROOT}/lua/device.lua
