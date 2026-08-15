@@ -4,5 +4,6 @@
 *.out
 *.log
 *.aux
+*.swp
 .vscode
 .gitconfig
