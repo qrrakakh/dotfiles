@@ -20,7 +20,7 @@ function addline() {
 }
 
 ## dotfiles
-for dotfile in .emacs.d .gitignore  .hgrc  .tmux.conf .screenrc  .vimrc
+for dotfile in .emacs.d .gitignore  .hgrc .screenrc  .vimrc
 do
     makelink ${dotfile} ${HOME}
 done
@@ -40,6 +40,16 @@ addline ". \"${SCRIPT_DIR}/.bashrc\"" ~/.bashrc
 
 ## zshrc
 addline "[ -f ${SCRIPT_DIR}/.zshrc ] && source ${SCRIPT_DIR}/.zshrc" ~/.zshrc
+
+## tmux
+TMUX_ROOT=${HOME}/.config/tmux
+mkdir -p ${TMUX_ROOT}
+ln -s ${SCRIPT_DIR}/.tmux.conf ${TMUX_ROOT}/tmux.conf
+for tmuxconf in ${SCRIPT_DIR}/tmux/*.conf
+do
+    ln -s ${tmuxconf} ${TMUX_ROOT}/
+done
+touch ${TMUX_ROOT}/device.conf
 
 ## Install plugins
 source ${SCRIPT_DIR}/install_vim_plugins
