@@ -39,7 +39,10 @@ done
 addline ". \"${SCRIPT_DIR}/.bashrc\"" ~/.bashrc
 
 ## zshrc
-addline "[ -f ${SCRIPT_DIR}/.zshrc ] && source ${SCRIPT_DIR}/.zshrc" ~/.zshrc
+echo 'ZDOTDIR=$HOME/.config/zsh' > ~/.zshenv
+mkdir -p $HOME/.config/zsh
+ln -s ${SCRIPT_DIR}/.zshrc $HOME/.config/zsh/
+#addline "[ -f ${SCRIPT_DIR}/.zshrc ] && source ${SCRIPT_DIR}/.zshrc" ~/.zshrc
 
 ## tmux
 TMUX_ROOT=${HOME}/.config/tmux

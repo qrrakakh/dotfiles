@@ -330,6 +330,10 @@ nvm() {
 
 
 ## Commandline tools
+flush_cache() {
+    sudo sh -c "echo 3 >'/proc/sys/vm/drop_caches' && swapoff -a && swapon -a"
+}
+
 function command_exist_warning {
     cmd=$1
     if {[ -x "`which ${cmd}`" ] || [ 1 -eq `alias ${cmd} | wc -l` ]}; then
@@ -527,3 +531,16 @@ if [ "0" -eq "$fzf_exist" ] && [ "0" -eq "$ghq_exist" ] ;then
     zle -N ghq-fzf
     bindkey '^g' ghq-fzf
 fi
+
+# NeoVim
+command_exist_warning nvim
+nvim_exist=$rtn
+if [ "0" -eq "$nvim_exist" ] ; then
+    export EDITOR=nvim
+    alias vi=nvim
+    alias vim=nvim
+    alias view="nvim -M"
+fi
+
+
+[ -f $ZDOTDIR/device.zsh ] && source $ZDOTDIR/device.zsh
