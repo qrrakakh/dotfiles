@@ -188,7 +188,12 @@ if [[ -n ${ZSH_VERSION-} ]]; then
 	autoload -U +X bashcompinit && bashcompinit
 fi
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# https://github.com/zsh-users/zsh-autosuggestions
+if [[ -f $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+else
+    echo "Warning: zsh-autosuggestions not installed in "$ZDOTDIR
+fi
 
 ## zsh editor
 #
