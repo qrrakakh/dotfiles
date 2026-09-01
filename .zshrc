@@ -1,4 +1,7 @@
-## Environment variable configuration
+## Load device-specific config first
+[ -f $ZDOTDIR/device.zsh ] && source $ZDOTDIR/device.zsh
+
+### Environment variable configuration
 export LESS=MXR
 export PATH=$HOME/local/bin:$HOME/.local/bin:$PATH
 export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
@@ -546,6 +549,3 @@ if [ "0" -eq "$nvim_exist" ] ; then
     alias vim=nvim
     alias view="nvim -M"
 fi
-
-
-[ -f $ZDOTDIR/device.zsh ] && source $ZDOTDIR/device.zsh
