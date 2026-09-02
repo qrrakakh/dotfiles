@@ -287,10 +287,6 @@ function ff { diff $1~ $1 ; }
 function ffc { diff -c $1~ $1 ; }
 function va { v -a "$@" | more ; }
 
-if [ -x `which vim` ]; then
-    alias vi='vim'
-    alias view="vim -M"
-fi
 
 # Python3
 function venv-activate { source $1/bin/activate; }
@@ -357,7 +353,7 @@ command_exist_warning fzf
 fzf_exist=$rtn
 if [ "0" -eq "$fzf_exist" ]; then
 
-    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    source <(fzf --zsh)
 
     ## Override history keybind to add timestamp
     fzf-history-widget() {
@@ -548,4 +544,7 @@ if [ "0" -eq "$nvim_exist" ] ; then
     alias vi=nvim
     alias vim=nvim
     alias view="nvim -M"
+elif [ -x `which vim` ]; then
+    alias vi='vim'
+    alias view="vim -M"
 fi
