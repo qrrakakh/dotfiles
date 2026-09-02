@@ -145,7 +145,7 @@ vim.opt.visualbell = true
 
 vim.opt.list = true
 vim.opt.listchars = { eol = "$", tab = "> ", extends = "<" }
-vim.opt.showtabline = 2
+-- vim.opt.showtabline = 2
 
 vim.opt.number = true
 vim.cmd("syntax on")
