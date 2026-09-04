@@ -1,5 +1,5 @@
 ## Load device-specific config first
-[ -f $ZDOTDIR/device.zsh ] && source $ZDOTDIR/device.zsh
+[ -f ${ZDOTDIR}/device.zsh ] && source ${ZDOTDIR}/device.zsh
 
 ### PATH related env.
 typeset -U path PATH
@@ -13,8 +13,12 @@ export LD_LIBRARY_PATH=${LIBRARY_PATH}
 #### XDG
 export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_DATA_HOME=${HOME}/.local/share
+export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_STATE_HOME=${HOME}/.local/state
 
+#### ZSH related paths
+export ZSH_PLUGIN_PATH=${XDG_DATA_HOME}/zsh/plugins
+export ZSH_COMPDUMP="${XDG_CACHE_HOME}/.zcompdump"
 
 ## Default shell configuration
 #
@@ -167,7 +171,7 @@ bindkey "\e[Z" reverse-menu-complete
 
 ## Command history configuration
 #
-HISTFILE=${HOME}/.zsh_history
+HISTFILE=${XDG_DATA_HOME}/zsh/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
 setopt hist_ignore_dups     # ignore duplication command history list
@@ -198,10 +202,10 @@ if [[ -n ${ZSH_VERSION-} ]]; then
 fi
 
 # https://github.com/zsh-users/zsh-autosuggestions
-if [[ -f $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [[ -f ${ZSH_PLUGIN_PATH}/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source ${ZSH_PLUGIN_PATH}/zsh-autosuggestions/zsh-autosuggestions.zsh
 else
-    echo "Warning: zsh-autosuggestions not installed in "$ZDOTDIR
+    echo "Warning: zsh-autosuggestions not installed in "${ZSH_PLUGIN_PATH}
 fi
 
 ## zsh editor

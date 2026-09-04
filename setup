@@ -22,6 +22,7 @@ function addline() {
 ## XDG
 mkdir -p ${HOME}/.config
 mkdir -p ${HOME}/.local/share
+mkdir -p ${HOME}/.cache
 mkdir -p ${HOME}/.local/state
 
 ## dotfiles
@@ -47,7 +48,7 @@ addline ". \"${SCRIPT_DIR}/.bashrc\"" ~/.bashrc
 echo 'ZDOTDIR=$HOME/.config/zsh' > ~/.zshenv
 mkdir -p $HOME/.config/zsh
 ln -fs ${SCRIPT_DIR}/.zshrc ${HOME}/.config/zsh/.zshrc
-#addline "[ -f ${SCRIPT_DIR}/.zshrc ] && source ${SCRIPT_DIR}/.zshrc" ~/.zshrc
+mkdir -p ${XDG_DATA_HOME}/zsh
 
 ## tmux
 TMUX_ROOT=${HOME}/.config/tmux
