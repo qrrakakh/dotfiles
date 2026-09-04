@@ -21,6 +21,9 @@ require("lazy").setup({
   },
   {
     "lmgraf/wsl-clipboard.nvim",
+    cond = function()
+        return vim.fn.system('uname -a | grep microsoft') ~= ''
+    end,
     opts = {
       mode = "sync", -- options: "system", "sync", "focus"
     },
@@ -160,19 +163,10 @@ vim.opt.showcmd = true
 ---- Color scheme
 vim.cmd.colorscheme("tokyonight-storm")
 
--- Clipboard (WSL)
--- https://scrapbox.io/takker/WSL2%E3%81%AEneovim%E3%81%A7clipboard%E3%82%92%E4%BD%BF%E3%81%86
---if vim.fn.system('uname -a | grep microsoft') ~= '' then
---    vim.g.clipboard = {
---        name = "WslClipboard",
---        copy = {
---            ["+"] = "clip.exe",
---            ["*"] = "clip.exe",
---        },
---        cache_enabled=1,
---    }
---end
-
+-- Clipboard (macOS)
+if vim.uv.os_uname().sysname == "Darwin" then
+    vim.opt.clipboard = "unnamedplus"
+end
 
 -- Lazygit+toggleterm
 local Terminal = require("toggleterm.terminal").Terminal
