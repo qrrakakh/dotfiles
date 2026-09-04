@@ -1,14 +1,20 @@
 ## Load device-specific config first
 [ -f $ZDOTDIR/device.zsh ] && source $ZDOTDIR/device.zsh
 
-### Environment variable configuration
+### PATH related env.
+typeset -U path PATH
 export LESS=MXR
-export PATH=$HOME/local/bin:$HOME/.local/bin:$PATH
-export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
-export CPLUS_INCLUDE_PATH=$C_INCLUDE_PATH
-export LIBRARY_PATH=$HOME/local/lib:$LIBRARY_PATH
-export LD_LIBRARY_PATH=$LIBRARY_PATH
-export EDITOR='vi'
+export PATH=${HOME}/.local/bin:${PATH}
+export C_INCLUDE_PATH=${HOME}/.local/include:${C_INCLUDE_PATH}
+export CPLUS_INCLUDE_PATH=${C_INCLUDE_PATH}
+export LIBRARY_PATH=$HOME/.local/lib:${LIBRARY_PATH}
+export LD_LIBRARY_PATH=${LIBRARY_PATH}
+
+#### XDG
+export XDG_CONFIG_HOME=${HOME}/.config
+export XDG_DATA_HOME=${HOME}/.local/share
+export XDG_STATE_HOME=${HOME}/.local/state
+
 
 ## Default shell configuration
 #
@@ -42,7 +48,7 @@ export EDITOR='vi'
 #         else
 #                  color=%F{red}
 #          fi
-              
+
 #         echo "$color$name$action%f%b: "
 # }
 
@@ -309,10 +315,10 @@ function venv {
     python3 -m venv "${venv_dir}"
 }
 
-# NVM
+# NVM - Node Version Manager
+export NVM_DIR=${HOME}/.local/nvm
 lazy_load_nvm() {
     unset -f npm node nvm
-    export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
@@ -536,7 +542,16 @@ if [ "0" -eq "$fzf_exist" ] && [ "0" -eq "$ghq_exist" ] ;then
     bindkey '^g' ghq-fzf
 fi
 
+# golang
+command_exist_warning go
+go_exist=$rtn
+if [ "0" -eq "$go_exist" ]; then
+    export GOPATH=${HOME}/.local/go/
+    export PATH=${GOPATH}/bin:${PATH}
+fi
+
 # NeoVim
+export EDITOR='vi'
 command_exist_warning nvim
 nvim_exist=$rtn
 if [ "0" -eq "$nvim_exist" ] ; then
@@ -548,3 +563,4 @@ elif [ -x `which vim` ]; then
     alias vi='vim'
     alias view="vim -M"
 fi
+
