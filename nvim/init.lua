@@ -168,6 +168,23 @@ if vim.uv.os_uname().sysname == "Darwin" then
     vim.opt.clipboard = "unnamedplus"
 end
 
+-- Clipboard (WSL)
+-- Windows Terminal does not support pasting using OSC52
+-- https://github.com/microsoft/terminal/issues/2946
+if vim.fn.system('uname -a | grep microsoft') ~= '' then
+    vim.g.clipboard = {
+      name = 'OSC 52 (Copy only)',
+      copy = {
+        ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+        ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+      },
+      paste = {
+        ['+'] = function() return {} end,
+        ['*'] = function() return {} end,
+      },
+    }
+end
+
 -- Lazygit+toggleterm
 local Terminal = require("toggleterm.terminal").Terminal
 local lazygit = Terminal:new({
