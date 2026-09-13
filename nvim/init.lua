@@ -166,28 +166,31 @@ if vim.uv.os_uname().sysname == "Darwin" then
 end
 
 --- Clipboard (WSL, no matter if we use tmux)
---- https://neovim.io/doc/user/provider/#clipboard-wsl
 if vim.fn.system('uname -a | grep microsoft') ~= '' then
     vim.opt.clipboard = "unnamedplus"
-    local function wsl_paste()
-        return {
-            vim.fn.split(vim.fn.getreg(""), "\n"),
-            vim.fn.getregtype(""),
+    if vim.fn.executable('wl-copy') ~= 1 then
+        --- Fallback to use clip.exe
+        --- https://neovim.io/doc/user/provider/#clipboard-wsl
+        local function wsl_paste()
+            return {
+                vim.fn.split(vim.fn.getreg(""), "\n"),
+                vim.fn.getregtype(""),
+            }
+        end
+        vim.g.clipboard = {
+          name = 'WSL-clipboard',
+          copy = {
+            ['+'] = 'clip.exe',
+            ['*'] = 'clip.exe',
+          },
+         paste = {
+              -- Disable paste from Windows clipboard since PowerShell is slow...
+              -- https://github.com/neovim/neovim/discussions/28010#discussioncomment-9877494
+            ['+'] = wsl_paste,
+            ['*'] = wsl_paste,
+          },
         }
     end
-    vim.g.clipboard = {
-      name = 'WSL-clipboard',
-      copy = {
-        ['+'] = 'clip.exe',
-        ['*'] = 'clip.exe',
-      },
-     paste = {
-          -- Disable paste from Windows clipboard since PowerShell is slow...
-          -- https://github.com/neovim/neovim/discussions/28010#discussioncomment-9877494
-        ['+'] = wsl_paste,
-        ['*'] = wsl_paste,
-      },
-    }
 end
 
 -- Lazygit+toggleterm
