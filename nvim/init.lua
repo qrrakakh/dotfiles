@@ -59,6 +59,7 @@ require("lazy").setup({
       { mode = "n", "<Leader>fg", "<cmd>Telescope live_grep<CR>", {} },
       { mode = "n", "<Leader>fb", "<cmd>Telescope buffers<CR>", {} },
       { mode = "n", "<Leader>fh", "<cmd>Telescope help_tags<CR>", {} },
+      { mode = "n", "<Leader>fr", "<cmd>Telescope registers<CR>", {} },
     },
     opts = function()
       local actions = require('telescope.actions')
@@ -154,9 +155,39 @@ vim.opt.showcmd = true
 ---- Color scheme
 vim.cmd.colorscheme("tokyonight-storm")
 
--- Clipboard (macOS)
+-- Clipboard
+--- Check the behavior in ...
+--- + yank/paste
+--- + Function - vim.fn.setreg('"', sss)
+
+--- Clipboard (macOS)
 if vim.uv.os_uname().sysname == "Darwin" then
     vim.opt.clipboard = "unnamedplus"
+end
+
+--- Clipboard (WSL, no matter if we use tmux)
+--- https://neovim.io/doc/user/provider/#clipboard-wsl
+if vim.fn.system('uname -a | grep microsoft') ~= '' then
+    vim.opt.clipboard = "unnamedplus"
+    local function wsl_paste()
+        return {
+            vim.fn.split(vim.fn.getreg(""), "\n"),
+            vim.fn.getregtype(""),
+        }
+    end
+    vim.g.clipboard = {
+      name = 'WSL-clipboard',
+      copy = {
+        ['+'] = 'clip.exe',
+        ['*'] = 'clip.exe',
+      },
+     paste = {
+          -- Disable paste from Windows clipboard since PowerShell is slow...
+          -- https://github.com/neovim/neovim/discussions/28010#discussioncomment-9877494
+        ['+'] = wsl_paste,
+        ['*'] = wsl_paste,
+      },
+    }
 end
 
 -- Lazygit+toggleterm
