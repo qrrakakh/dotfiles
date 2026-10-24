@@ -154,6 +154,8 @@ vim.opt.showcmd = true
 
 ---- Color scheme
 vim.cmd.colorscheme("tokyonight-storm")
+vim.api.nvim_set_hl(0, "StatusLine",   { fg = "#1e2e1e", bg = "#89fab4", bold = true })
+vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#6c7086", bg = "#313244" })
 
 -- Clipboard
 --- Check the behavior in ...
