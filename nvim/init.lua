@@ -30,7 +30,8 @@ require("lazy").setup({
     opts = {
 	ensure_installed = {
 	    "pyright",
-        "gopls",
+            "gopls",
+            "clangd",
 	}
     },
     dependencies = {
