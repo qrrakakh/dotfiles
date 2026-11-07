@@ -62,12 +62,19 @@ https://github.com/neovim/neovim/releases
 Put under .local and make symlink of `_nvim` (not `nvim`) to .local/bin.
 NeoVim will be loaded by start_nvim following to initialize NVM: required by pyright and treesitter.
 
-### im-select
+### im-select / zenhan
 https://github.com/daipeihust/im-select
 
 ```
 curl -Ls https://raw.githubusercontent.com/daipeihust/im-select/master/install_mac.sh | sh:
 ```
+
+https://github.com/kyoh86/zenhan
+```
+wget https://github.com/kyoh86/zenhan/releases/download/v0.0.1/zenhan.exe -O ~/.local/bin/zenhan.exe
+chmod +x ~/.loal/bin/zenhan.exe
+```
+
 
 ### golang
 - macOS: Install with brew

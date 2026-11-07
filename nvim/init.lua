@@ -308,12 +308,9 @@ if vim.uv.os_uname().sysname == "Darwin" then
 end
 
 if vim.fn.system('uname -a | grep microsoft') ~= '' then
-    -- WSL: TBD
-    --[[
     vim.api.nvim_create_autocmd("InsertLeave", {
       command = "silent! !zenhan.exe 0",
     })
-    ]]--
 end
 
 ---- Telescope
@@ -399,6 +396,7 @@ local function toggle_appearance()
 end
 
 -- Keybind
+vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", ";;", toggle_appearance, { noremap = true, silent = true, desc = "Toggle appearance" })
 vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<CR><Esc>", { noremap = true, silent = true})
 vim.keymap.set("i", "<S-tab>", "<C-d>", { noremap = true, silent = true})
