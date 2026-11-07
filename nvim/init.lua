@@ -303,7 +303,7 @@ end
 ---- IME auto disable
 if vim.uv.os_uname().sysname == "Darwin" then
     vim.api.nvim_create_autocmd("InsertLeave", {
-      command = "silent! !im-select com.apple.Keylayout.ABC",
+      command = "silent! !im-select com.apple.keylayout.ABC",
     })
 end
 
