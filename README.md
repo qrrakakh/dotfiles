@@ -1,7 +1,7 @@
 Hiroaki's dotfiles
 
 # XDG
-```
+```bash
 export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_STATE_HOME=${HOME}/.local/state
@@ -38,6 +38,8 @@ https://github.com/x-motemen/ghq/releases
 ### gwq
 https://github.com/d-kuro/gwq/releases
 
+Assuming to use my personal fork: https://github.com/qrrakakh/gwq
+
 
 ## Others
 ### zsh-autosuggestions
@@ -57,8 +59,15 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.7/install.sh | bash
 ### NeoVim
 https://github.com/neovim/neovim/releases
 
-Put under .local and make symlink of nvim to .local/bin
+Put under .local and make symlink of `_nvim` (not `nvim`) to .local/bin.
+NeoVim will be loaded by start_nvim following to initialize NVM: required by pyright and treesitter.
 
+### im-select
+https://github.com/daipeihust/im-select
+
+```
+curl -Ls https://raw.githubusercontent.com/daipeihust/im-select/master/install_mac.sh | sh:
+```
 
 ### golang
 - macOS: Install with brew

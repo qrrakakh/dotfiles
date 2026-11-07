@@ -20,6 +20,57 @@ require("lazy").setup({
     opts = {},
   },
   {
+      "APZelos/blamer.nvim",
+      event = { "BufReadPost", "BufNewFile" },
+      config = function()
+          vim.g.blamer_enabled = 1
+          vim.g.blamer_delay = 200
+          vim.g.blamer_show_in_visual_modes = 0
+          vim.g.blamer_show_in_insert_modes = 0
+      end,
+  },
+  {
+    "windwp/nvim-autopairs",
+    event="InsertEnter",
+    config = true
+  },
+  {
+	"nvim-lualine/lualine.nvim",
+	dependencies = { 'nvim-tree/nvim-web-devicons'}
+  },
+  { 
+      'mariocesar/beside.nvim', 
+      cmd = 'Beside', 
+      pts = {} 
+  },
+  --[[
+  {
+      "Pocco81/auto-save.nvim"
+  },
+  ]]--
+  --[[
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    --build = ':TSUpdate',
+    opts = {
+        highlight = { enable = true },
+        folds = { enable = true },
+        ensure_installed = {
+            "markdown",
+            "markdown_inline",
+            "javascript",
+            "c",
+            "html",
+            "python",
+            "typescript",
+            "json",
+            "tsx"
+        }
+    }
+  },
+  ]]--
+  {
     "mason-org/mason.nvim",
     build = ":MasonUpdate",
     cmd = { "Mason", "MasonUpdate", "MasonLog", "MasonInstall", "MasonUninstall", "MasonUninstallAll" },
@@ -30,8 +81,8 @@ require("lazy").setup({
     opts = {
 	ensure_installed = {
 	    "pyright",
-            "gopls",
-            "clangd",
+        "gopls",
+        "clangd",
 	}
     },
     dependencies = {
@@ -49,6 +100,16 @@ require("lazy").setup({
     },
   },
   {
+    "walkersumida/fusen.nvim",
+    version = "*",
+    --event = "VimEnter",
+    opts = {
+      save_file = vim.fn.expand("$HOME") .. "/.local/share/my_fusen_marks.json",
+      telescope = {
+      },
+    }
+  },
+  {
     'nvim-telescope/telescope.nvim', 
     dependencies = {
         'nvim-lua/plenary.nvim',
@@ -61,6 +122,7 @@ require("lazy").setup({
       { mode = "n", "<Leader>fb", "<cmd>Telescope buffers<CR>", {} },
       { mode = "n", "<Leader>fh", "<cmd>Telescope help_tags<CR>", {} },
       { mode = "n", "<Leader>fr", "<cmd>Telescope registers<CR>", {} },
+      { mode = "n", "<Leader>fm", "<cmd>Telescope fusen marks<CR>", {} },
     },
     opts = function()
       local actions = require('telescope.actions')
@@ -144,19 +206,61 @@ vim.opt.listchars = { eol = "$", tab = "> ", extends = "<" }
 -- vim.opt.showtabline = 2
 
 vim.opt.number = true
-vim.cmd("syntax on")
+--vim.cmd("syntax on")
 vim.opt.title = true
 vim.opt.showmatch = true
 vim.opt.matchtime = 1
 vim.opt.ruler = true
-vim.opt.statusline = "%<%f %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).'/'.&ff.']'}%=%l,%c%V%6P"
 vim.opt.linespace = 0
 vim.opt.showcmd = true
 
 ---- Color scheme
 vim.cmd.colorscheme("tokyonight-storm")
-vim.api.nvim_set_hl(0, "StatusLine",   { fg = "#1e2e1e", bg = "#89fab4", bold = true })
-vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#6c7086", bg = "#313244" })
+--vim.api.nvim_set_hl(0, "StatusLine",   { fg = "#1e2e1e", bg = "#89fab4", bold = true 
+--vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#6c7086", bg = "#313244" })
+
+---- statusline
+--vim.opt.statusline = "%<%f %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).'/'.&ff.']'}%=%l,%c%V%6P"
+require('lualine').setup{
+    options = {
+        theme = 'tokyonight-storm'
+    }
+}
+
+---- Tree-sitter
+
+--[[
+if vim.fn.executable("tree-sitter") ~= 1 then
+    if vim.fn.executable("npm") ~= 1 then
+        vim.notify("npm not found. We do not install tree-sitter-cli.", vim.log.levels.WARN)
+    else
+        vim.notify("Installing tree-sitter-cli...", vim.log.levels.INFO)
+        vim.system({ "npm", "install", "-g", "tree-sitter-cli" }, { text = true }, function(res)
+            vim.schedule(function()
+                if res.code == 0 then
+                    vim.notify("Succeeded to install tree-sitter-cli.", vim.log.levels.INFO)
+                else
+                    vim.notify("Failed to install tree-sitter-cli:\n" .. (res.stderr or ""), vim.log.levels.ERROR)
+                end
+            end)
+        end)
+    end
+end
+
+ts_module = require('nvim-treesitter')
+ts_module.setup {
+    install_dir = vim.fn.stdpath('data') .. '/site'
+}
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("vim-treesitter-start", {}),
+	callback = function(ctx)
+		pcall(vim.treesitter.start)
+	end,
+})
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldmethod = "expr"
+]]--
 
 -- Clipboard
 --- Check the behavior in ...
@@ -196,6 +300,24 @@ if vim.fn.system('uname -a | grep microsoft') ~= '' then
     end
 end
 
+---- IME auto disable
+if vim.uv.os_uname().sysname == "Darwin" then
+    vim.api.nvim_create_autocmd("InsertLeave", {
+      command = "silent! !im-select com.apple.Keylayout.ABC",
+    })
+end
+
+if vim.fn.system('uname -a | grep microsoft') ~= '' then
+    -- WSL: TBD
+    --[[
+    vim.api.nvim_create_autocmd("InsertLeave", {
+      command = "silent! !zenhan.exe 0",
+    })
+    ]]--
+end
+
+---- Telescope
+
 -- Lazygit+toggleterm
 local Terminal = require("toggleterm.terminal").Terminal
 local lazygit = Terminal:new({
@@ -207,6 +329,7 @@ local lazygit = Terminal:new({
 function _lazygit_toggle()
     lazygit:toggle()
 end
+
 
 -- Generic window function
 local function _open_cmd_in_window(cmd)
@@ -278,6 +401,8 @@ end
 -- Keybind
 vim.keymap.set("n", ";;", toggle_appearance, { noremap = true, silent = true, desc = "Toggle appearance" })
 vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<CR><Esc>", { noremap = true, silent = true})
+vim.keymap.set("i", "<S-tab>", "<C-d>", { noremap = true, silent = true})
+
 vim.api.nvim_set_keymap("n", "<Leader>lg", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true})
 
 require("device")

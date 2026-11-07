@@ -68,6 +68,7 @@ source ${SCRIPT_DIR}/install_zsh_plugins
 NEOVIM_ROOT=${HOME}/.config/nvim
 mkdir -p ${NEOVIM_ROOT}/lua
 ln -fs ${SCRIPT_DIR}/nvim/init.lua ${NEOVIM_ROOT}/init.lua
+ln -fs ${SCRIPT_DIR}/nvim/start_nvim ${local_bin}/nvim
 for vimlua in ${SCRIPT_DIR}/nvim/lua/*.lua
 do
     ln -fs ${vimlua} ${NEOVIM_ROOT}/lua
