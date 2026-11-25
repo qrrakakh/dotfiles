@@ -544,6 +544,7 @@ if [ "0" -eq "$fzf_exist" ] && [ "0" -eq "$ghq_exist" ] ;then
     }
     zle -N ghq-fzf
     bindkey '^g' ghq-fzf
+    alias gw="gwq add -si"
 fi
 
 # golang
